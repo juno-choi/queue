@@ -25,8 +25,16 @@ repositories {
     maven { url = 'https://repo.spring.io/snapshot' }
 }
 
+dependencyManagement {
+    imports {
+        mavenBom 'io.awspring.cloud:spring-cloud-aws-dependencies:3.3.1'
+    }
+}
+
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'io.awspring.cloud:spring-cloud-aws-starter-sns'
+    implementation 'io.awspring.cloud:spring-cloud-aws-starter-sqs'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'

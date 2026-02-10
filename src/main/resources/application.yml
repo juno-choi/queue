@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: queue
+  cloud:
+    aws:
+      region:
+        static: ap-northeast-2
+      credentials:
+        access-key: test
+        secret-key: test
+      endpoint: http://localhost:4566
+
+app:
+  sns:
+    topic-arn: arn:aws:sns:ap-northeast-2:000000000000:order-events
