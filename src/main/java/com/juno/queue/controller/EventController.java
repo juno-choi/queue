@@ -1,4 +1,4 @@
-package com.juno.queue.core.controller;
+package com.juno.queue.controller;
 
 import com.juno.queue.event.dto.MainEvent;
 import com.juno.queue.event.dto.PublishEventRequest;
