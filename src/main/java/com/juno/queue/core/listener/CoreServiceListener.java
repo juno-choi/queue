@@ -19,14 +19,15 @@ public class CoreServiceListener {
 
     @SqsListener(value = "core-service", acknowledgementMode = SqsListenerAcknowledgementMode.MANUAL)
     public void handle(MainEvent event, Acknowledgement acknowledgement) {
-        CoreExecutor coreExecutor = executorMap.get(event.getEventType().name());
-        try {
-            coreExecutor.execute();
-        } catch (NullPointerException ne) {
-            log.warn("not found executor: {}", event.getEventType().name());
-            return ;
+        String eventTypeName = event.getEventType().name();
+        CoreExecutor coreExecutor = executorMap.get(eventTypeName);
+
+        if (coreExecutor == null) {
+            log.warn("not found executor: {}", eventTypeName);
+            return;
         }
 
+        coreExecutor.execute();
         acknowledgement.acknowledge();
         log.info("[Core Service] Received event: eventId={}, eventType={}, payload={}",
                 event.getEventId(), event.getEventType(), event.getPayload());
