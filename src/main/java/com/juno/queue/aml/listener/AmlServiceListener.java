@@ -1,6 +1,6 @@
-package com.juno.queue.core.listener;
+package com.juno.queue.aml.listener;
 
-import com.juno.queue.core.executor.CoreExecutor;
+import com.juno.queue.aml.executor.AmlExecutor;
 import com.juno.queue.event.dto.MainEvent;
 import io.awspring.cloud.sqs.annotation.SqsListener;
 import io.awspring.cloud.sqs.annotation.SqsListenerAcknowledgementMode;
@@ -14,13 +14,13 @@ import java.util.Map;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class CoreServiceListener {
-    private final Map<String, CoreExecutor> executorMap;
+public class AmlServiceListener {
+    private final Map<String, AmlExecutor> executorMap;
 
-    @SqsListener(value = "core-service", acknowledgementMode = SqsListenerAcknowledgementMode.MANUAL)
+    @SqsListener(value = "aml-service", acknowledgementMode = SqsListenerAcknowledgementMode.MANUAL)
     public void handle(MainEvent event, Acknowledgement acknowledgement) {
         String eventTypeName = event.getEventType().name();
-        CoreExecutor executor = executorMap.get(eventTypeName);
+        AmlExecutor executor = executorMap.get(eventTypeName);
 
         if (executor == null) {
             log.warn("not found executor: {}", eventTypeName);
@@ -29,7 +29,7 @@ public class CoreServiceListener {
 
         executor.execute(event.getPayload());
         acknowledgement.acknowledge();
-        log.info("[Core Service] Received event: eventId={}, eventType={}, payload={}",
+        log.info("[Aml Service] Received event: eventId={}, eventType={}, payload={}",
                 event.getEventId(), event.getEventType(), event.getPayload());
     }
 }

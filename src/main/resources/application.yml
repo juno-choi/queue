@@ -12,4 +12,4 @@ spring:
 
 app:
   sns:
-    topic-arn: arn:aws:sns:ap-northeast-2:000000000000:main-topic
+    topic-arn: arn:aws:sns:ap-northeast-2:000000000000:user
