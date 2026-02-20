@@ -1,8 +1,7 @@
 package com.juno.queue.notification.listener;
 
-import com.juno.queue.aml.executor.AmlExecutor;
 import com.juno.queue.event.dto.MainEvent;
-import com.juno.queue.notification.executor.NotificationExecutor;
+import com.juno.queue.event.executor.Executor;
 import io.awspring.cloud.sqs.annotation.SqsListener;
 import io.awspring.cloud.sqs.annotation.SqsListenerAcknowledgementMode;
 import io.awspring.cloud.sqs.listener.acknowledgement.Acknowledgement;
@@ -16,12 +15,12 @@ import java.util.Map;
 @Component
 @RequiredArgsConstructor
 public class NotificationServiceListener {
-    private final Map<String, NotificationExecutor> executorMap;
+    private final Map<String, Executor> executorMap;
 
     @SqsListener(value = "notification-service", acknowledgementMode = SqsListenerAcknowledgementMode.MANUAL)
     public void handle(MainEvent event, Acknowledgement acknowledgement) {
         String eventTypeName = event.getEventType().name();
-        NotificationExecutor executor = executorMap.get(eventTypeName);
+        Executor executor = executorMap.get(eventTypeName);
 
         if (executor == null) {
             log.warn("not found executor: {}", eventTypeName);

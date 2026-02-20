@@ -87,7 +87,7 @@ awslocal sns set-subscription-attributes \
 awslocal sns set-subscription-attributes \
   --subscription-arn $NOTI_SUB_ARN \
   --attribute-name FilterPolicy \
-  --attribute-value '{"eventType": ["mail"]}' \
+  --attribute-value '{"eventType": ["mail", "deposit", "join"]}' \
   --region $REGION
 
 awslocal sns set-subscription-attributes \

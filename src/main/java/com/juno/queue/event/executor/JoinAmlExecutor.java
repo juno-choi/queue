@@ -1,11 +1,11 @@
-package com.juno.queue.aml.executor;
+package com.juno.queue.event.executor;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 @Component("join")
 @Slf4j
-public class JoinAmlExecutor implements AmlExecutor{
+public class JoinAmlExecutor implements Executor {
 
     @Override
     public void execute(String payload) {

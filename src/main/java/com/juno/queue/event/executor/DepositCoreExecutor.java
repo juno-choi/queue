@@ -1,11 +1,11 @@
-package com.juno.queue.core.executor;
+package com.juno.queue.event.executor;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 @Component("deposit")
 @Slf4j
-public class DepositCoreExecutor implements CoreExecutor{
+public class DepositCoreExecutor implements Executor {
 
     @Override
     public void execute(String payload) {

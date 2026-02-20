@@ -1,7 +1,7 @@
 package com.juno.queue.core.listener;
 
-import com.juno.queue.core.executor.CoreExecutor;
 import com.juno.queue.event.dto.MainEvent;
+import com.juno.queue.event.executor.Executor;
 import io.awspring.cloud.sqs.annotation.SqsListener;
 import io.awspring.cloud.sqs.annotation.SqsListenerAcknowledgementMode;
 import io.awspring.cloud.sqs.listener.acknowledgement.Acknowledgement;
@@ -15,12 +15,12 @@ import java.util.Map;
 @Component
 @RequiredArgsConstructor
 public class CoreServiceListener {
-    private final Map<String, CoreExecutor> executorMap;
+    private final Map<String, Executor> executorMap;
 
     @SqsListener(value = "core-service", acknowledgementMode = SqsListenerAcknowledgementMode.MANUAL)
     public void handle(MainEvent event, Acknowledgement acknowledgement) {
         String eventTypeName = event.getEventType().name();
-        CoreExecutor executor = executorMap.get(eventTypeName);
+        Executor executor = executorMap.get(eventTypeName);
 
         if (executor == null) {
             log.warn("not found executor: {}", eventTypeName);
