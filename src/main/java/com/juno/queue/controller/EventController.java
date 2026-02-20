@@ -1,6 +1,6 @@
 package com.juno.queue.controller;
 
-import com.juno.queue.event.dto.MainEvent;
+import com.juno.queue.event.dto.DefaultEvent;
 import com.juno.queue.event.dto.PublishEventRequest;
 import com.juno.queue.event.publisher.MainEventPublisher;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/events")
@@ -22,10 +21,8 @@ public class EventController {
 
     @PostMapping
     public ResponseEntity<Map<String, String>> publishEvent(@RequestBody PublishEventRequest request) {
-        String eventId = UUID.randomUUID().toString();
-
-        MainEvent event = MainEvent.builder()
-                .eventId(eventId)
+        DefaultEvent event = DefaultEvent.builder()
+                .eventId(request.getEventId())
                 .eventType(request.getEventType())
                 .payload(request.getPayload())
                 .build();
@@ -33,7 +30,7 @@ public class EventController {
         mainEventPublisher.publish(event);
 
         return ResponseEntity.ok(Map.of(
-                "eventId", eventId,
+                "eventId", request.getEventId(),
                 "eventType", request.getEventType().name(),
                 "status", "published"
         ));

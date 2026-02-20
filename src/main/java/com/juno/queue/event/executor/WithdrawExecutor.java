@@ -5,9 +5,10 @@ import org.springframework.stereotype.Component;
 
 @Component("withdraw")
 @Slf4j
-public class WithdrawCoreExecutor implements Executor {
+public class WithdrawExecutor implements Executor {
+
     @Override
-    public void execute(String payload) {
-        log.info("withdraw payload: {}", payload);
+    public void execute(Object payload) {
+        log.info("withdraw payload: {}", payload.toString());
     }
 }

@@ -1,6 +1,6 @@
 package com.juno.queue.aml.listener;
 
-import com.juno.queue.event.dto.MainEvent;
+import com.juno.queue.event.dto.DefaultEvent;
 import com.juno.queue.event.executor.Executor;
 import io.awspring.cloud.sqs.annotation.SqsListener;
 import io.awspring.cloud.sqs.annotation.SqsListenerAcknowledgementMode;
@@ -18,7 +18,7 @@ public class AmlServiceListener {
     private final Map<String, Executor> executorMap;
 
     @SqsListener(value = "aml-service", acknowledgementMode = SqsListenerAcknowledgementMode.MANUAL)
-    public void handle(MainEvent event, Acknowledgement acknowledgement) {
+    public void handle(DefaultEvent event, Acknowledgement acknowledgement) {
         String eventTypeName = event.getEventType().name();
         Executor executor = executorMap.get(eventTypeName);
 

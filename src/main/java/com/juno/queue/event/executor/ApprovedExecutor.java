@@ -5,9 +5,10 @@ import org.springframework.stereotype.Component;
 
 @Component("approved")
 @Slf4j
-public class ApprovedAmlExecutor implements Executor {
+public class ApprovedExecutor implements Executor {
+
     @Override
-    public void execute(String payload) {
-        log.info("approved payload: {}", payload);
+    public void execute(Object payload) {
+        log.info("approved payload: {}", payload.toString());
     }
 }

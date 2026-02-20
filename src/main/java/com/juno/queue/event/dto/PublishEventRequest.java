@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class PublishEventRequest {
-
+    private String eventId;
     private EventType eventType;
-    private String payload;
+    private Object payload;
 }

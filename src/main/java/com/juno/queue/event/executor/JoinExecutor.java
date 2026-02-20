@@ -5,10 +5,10 @@ import org.springframework.stereotype.Component;
 
 @Component("join")
 @Slf4j
-public class JoinAmlExecutor implements Executor {
+public class JoinExecutor implements Executor {
 
     @Override
-    public void execute(String payload) {
-        log.info("join payload: {}", payload);
+    public void execute(Object payload) {
+        log.info("join payload: {}", payload.toString());
     }
 }

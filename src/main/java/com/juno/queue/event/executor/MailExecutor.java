@@ -5,9 +5,10 @@ import org.springframework.stereotype.Component;
 
 @Component("mail")
 @Slf4j
-public class MailNotificationExecutor implements Executor {
+public class MailExecutor implements Executor {
+
     @Override
-    public void execute(String payload) {
-        log.info("mail payload: {}", payload);
+    public void execute(Object payload) {
+        log.info("mail payload: {}", payload.toString());
     }
 }

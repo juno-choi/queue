@@ -5,10 +5,10 @@ import org.springframework.stereotype.Component;
 
 @Component("deposit")
 @Slf4j
-public class DepositCoreExecutor implements Executor {
+public class DepositExecutor implements Executor {
 
     @Override
-    public void execute(String payload) {
-        log.info("deposit payload: {}", payload);
+    public void execute(Object payload) {
+        log.info("deposit payload: {}", payload.toString());
     }
 }

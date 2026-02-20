@@ -1,6 +1,6 @@
 package com.juno.queue.event.publisher;
 
-import com.juno.queue.event.dto.MainEvent;
+import com.juno.queue.event.dto.DefaultEvent;
 import io.awspring.cloud.sns.core.SnsTemplate;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +17,7 @@ public class MainEventPublisher {
     @Value("${app.sns.topic-arn}")
     private String topicArn;
 
-    public void publish(MainEvent event) {
+    public void publish(DefaultEvent event) {
         log.info("Publishing event: eventId={}, eventType={}", event.getEventId(), event.getEventType());
         snsTemplate.convertAndSend(topicArn, event);
     }

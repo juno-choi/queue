@@ -9,9 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MainEvent {
-
+public class DefaultEvent {
     private String eventId;
     private EventType eventType;
-    private String payload;
+    private Object payload;
 }
