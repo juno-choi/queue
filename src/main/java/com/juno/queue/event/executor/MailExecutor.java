@@ -1,14 +1,20 @@
 package com.juno.queue.event.executor;
 
+import com.juno.queue.event.dto.payload.MailEventPayload;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 @Component("mail")
 @Slf4j
-public class MailExecutor implements Executor {
+public class MailExecutor implements Executor<MailEventPayload> {
 
     @Override
-    public void execute(Object payload) {
+    public void execute(MailEventPayload payload) {
         log.info("mail payload: {}", payload.toString());
+    }
+
+    @Override
+    public Class<MailEventPayload> getPayloadType() {
+        return MailEventPayload.class;
     }
 }

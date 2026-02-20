@@ -1,5 +1,6 @@
 package com.juno.queue.aml.listener;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.juno.queue.event.dto.DefaultEvent;
 import com.juno.queue.event.executor.Executor;
 import io.awspring.cloud.sqs.annotation.SqsListener;
@@ -15,8 +16,10 @@ import java.util.Map;
 @Component
 @RequiredArgsConstructor
 public class AmlServiceListener {
-    private final Map<String, Executor> executorMap;
+    private final Map<String, Executor<?>> executorMap;
+    private final ObjectMapper objectMapper;
 
+    @SuppressWarnings({"rawtypes", "unchecked"})
     @SqsListener(value = "aml-service", acknowledgementMode = SqsListenerAcknowledgementMode.MANUAL)
     public void handle(DefaultEvent event, Acknowledgement acknowledgement) {
         String eventTypeName = event.getEventType().name();
@@ -27,7 +30,8 @@ public class AmlServiceListener {
             return;
         }
 
-        executor.execute(event.getPayload());
+        Object converted = objectMapper.convertValue(event.getPayload(), executor.getPayloadType());
+        executor.execute(converted);
         acknowledgement.acknowledge();
         log.info("[Aml Service] Received event: eventId={}, eventType={}, payload={}",
                 event.getEventId(), event.getEventType(), event.getPayload());
