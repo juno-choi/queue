@@ -30,6 +30,18 @@ awslocal sns set-subscription-attributes \
   --attribute-value true \
   --region $REGION
 
+awslocal sns set-subscription-attributes \
+  --subscription-arn $AML_SUB_ARN \
+  --attribute-name FilterPolicy \
+  --attribute-value '{"eventType": ["join", "approved"]}' \
+  --region $REGION
+
+awslocal sns set-subscription-attributes \
+  --subscription-arn $AML_SUB_ARN \
+  --attribute-name FilterPolicyScope \
+  --attribute-value MessageBody \
+  --region $REGION
+
 # ========== core-service 구독 ==========
 echo "Subscribing core-service..."
 CORE_SUB_ARN=$(awslocal sns subscribe \
@@ -45,6 +57,18 @@ awslocal sns set-subscription-attributes \
   --attribute-value true \
   --region $REGION
 
+awslocal sns set-subscription-attributes \
+  --subscription-arn $CORE_SUB_ARN \
+  --attribute-name FilterPolicy \
+  --attribute-value '{"eventType": ["deposit", "withdraw"]}' \
+  --region $REGION
+
+awslocal sns set-subscription-attributes \
+  --subscription-arn $CORE_SUB_ARN \
+  --attribute-name FilterPolicyScope \
+  --attribute-value MessageBody \
+  --region $REGION
+
 # ========== notification-service 구독 ==========
 echo "Subscribing notification-service..."
 NOTI_SUB_ARN=$(awslocal sns subscribe \
@@ -58,6 +82,18 @@ awslocal sns set-subscription-attributes \
   --subscription-arn $NOTI_SUB_ARN \
   --attribute-name RawMessageDelivery \
   --attribute-value true \
+  --region $REGION
+
+awslocal sns set-subscription-attributes \
+  --subscription-arn $NOTI_SUB_ARN \
+  --attribute-name FilterPolicy \
+  --attribute-value '{"eventType": ["mail"]}' \
+  --region $REGION
+
+awslocal sns set-subscription-attributes \
+  --subscription-arn $NOTI_SUB_ARN \
+  --attribute-name FilterPolicyScope \
+  --attribute-value MessageBody \
   --region $REGION
 
 echo ""
