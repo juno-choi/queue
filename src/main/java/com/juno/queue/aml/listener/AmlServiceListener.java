@@ -2,6 +2,7 @@ package com.juno.queue.aml.listener;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.juno.queue.event.dto.DefaultEvent;
+import com.juno.queue.event.dto.payload.EventPayload;
 import com.juno.queue.event.executor.Executor;
 import io.awspring.cloud.sqs.annotation.SqsListener;
 import io.awspring.cloud.sqs.annotation.SqsListenerAcknowledgementMode;
@@ -30,7 +31,7 @@ public class AmlServiceListener {
             return;
         }
 
-        Object converted = objectMapper.convertValue(event.getPayload(), executor.getPayloadType());
+        EventPayload converted = (EventPayload) objectMapper.convertValue(event.getPayload(), executor.getPayloadType());
         executor.execute(converted);
         acknowledgement.acknowledge();
         log.info("[Aml Service] Received event: eventId={}, eventType={}, payload={}",

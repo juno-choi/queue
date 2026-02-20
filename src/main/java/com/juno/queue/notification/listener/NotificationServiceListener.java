@@ -2,6 +2,7 @@ package com.juno.queue.notification.listener;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.juno.queue.event.dto.DefaultEvent;
+import com.juno.queue.event.dto.payload.EventPayload;
 import com.juno.queue.event.executor.Executor;
 import io.awspring.cloud.sqs.annotation.SqsListener;
 import io.awspring.cloud.sqs.annotation.SqsListenerAcknowledgementMode;
@@ -19,9 +20,9 @@ public class NotificationServiceListener {
     private final Map<String, Executor<?>> executorMap;
     private final ObjectMapper objectMapper;
 
-    @SuppressWarnings({"rawtypes", "unchecked"})
     @SqsListener(value = "notification-service", acknowledgementMode = SqsListenerAcknowledgementMode.MANUAL)
     public void handle(DefaultEvent event, Acknowledgement acknowledgement) {
+        // eventType에 따라 실행할 executor 가져오기
         String eventTypeName = event.getEventType().name();
         Executor executor = executorMap.get(eventTypeName);
 
@@ -30,8 +31,11 @@ public class NotificationServiceListener {
             return;
         }
 
-        Object converted = objectMapper.convertValue(event.getPayload(), executor.getPayloadType());
+        // event payload를 executor에서 사용하는 payload로 변환
+        EventPayload converted = (EventPayload) objectMapper.convertValue(event.getPayload(), executor.getPayloadType());
         executor.execute(converted);
+
+        // 모두 성공했다면 ack
         acknowledgement.acknowledge();
         log.info("[Notification Service] Received event: eventId={}, eventType={}, payload={}",
                 event.getEventId(), event.getEventType(), event.getPayload());

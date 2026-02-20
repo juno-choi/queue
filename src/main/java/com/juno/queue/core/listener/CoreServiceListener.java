@@ -2,6 +2,7 @@ package com.juno.queue.core.listener;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.juno.queue.event.dto.DefaultEvent;
+import com.juno.queue.event.dto.payload.EventPayload;
 import com.juno.queue.event.executor.Executor;
 import io.awspring.cloud.sqs.annotation.SqsListener;
 import io.awspring.cloud.sqs.annotation.SqsListenerAcknowledgementMode;
@@ -19,7 +20,6 @@ public class CoreServiceListener {
     private final Map<String, Executor<?>> executorMap;
     private final ObjectMapper objectMapper;
 
-    @SuppressWarnings({"rawtypes", "unchecked"})
     @SqsListener(value = "core-service", acknowledgementMode = SqsListenerAcknowledgementMode.MANUAL)
     public void handle(DefaultEvent event, Acknowledgement acknowledgement) {
         String eventTypeName = event.getEventType().name();
@@ -30,7 +30,7 @@ public class CoreServiceListener {
             return;
         }
 
-        Object converted = objectMapper.convertValue(event.getPayload(), executor.getPayloadType());
+        EventPayload converted = (EventPayload) objectMapper.convertValue(event.getPayload(), executor.getPayloadType());
         executor.execute(converted);
         acknowledgement.acknowledge();
         log.info("[Core Service] Received event: eventId={}, eventType={}, payload={}",
