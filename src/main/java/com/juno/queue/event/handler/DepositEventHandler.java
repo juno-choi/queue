@@ -1,13 +1,12 @@
-package com.juno.queue.event.executor;
+package com.juno.queue.event.handler;
 
-import com.juno.queue.event.dto.payload.ApprovedEventPayload;
 import com.juno.queue.event.dto.payload.DepositEventPayload;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 @Component("deposit")
 @Slf4j
-public class DepositExecutor extends Executor<DepositEventPayload> {
+public class DepositEventHandler extends EventHandler<DepositEventPayload> {
 
     @Override
     public Class<DepositEventPayload> getPayloadType() {

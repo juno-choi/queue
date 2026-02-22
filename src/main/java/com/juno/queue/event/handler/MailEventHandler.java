@@ -1,4 +1,4 @@
-package com.juno.queue.event.executor;
+package com.juno.queue.event.handler;
 
 import com.juno.queue.event.dto.payload.MailEventPayload;
 import lombok.extern.slf4j.Slf4j;
@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component("mail")
 @Slf4j
-public class MailExecutor extends Executor<MailEventPayload> {
+public class MailEventHandler extends EventHandler<MailEventPayload> {
 
     @Override
     public Class<MailEventPayload> getPayloadType() {

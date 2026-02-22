@@ -2,7 +2,7 @@ package com.juno.queue.core.listener;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.juno.queue.event.dto.DefaultEvent;
-import com.juno.queue.event.executor.Executor;
+import com.juno.queue.event.handler.EventHandler;
 import io.awspring.cloud.sqs.annotation.SqsListener;
 import io.awspring.cloud.sqs.annotation.SqsListenerAcknowledgementMode;
 import io.awspring.cloud.sqs.listener.acknowledgement.Acknowledgement;
@@ -16,23 +16,23 @@ import java.util.Map;
 @Component
 @RequiredArgsConstructor
 public class CoreServiceListener {
-    private final Map<String, Executor<?>> executorMap;
+    private final Map<String, EventHandler<?>> handlerMap;
     private final ObjectMapper objectMapper;
 
     @SqsListener(value = "core-service", acknowledgementMode = SqsListenerAcknowledgementMode.MANUAL)
     public void handle(DefaultEvent event, Acknowledgement acknowledgement) {
         String eventTypeName = event.getEventType().name();
-        Executor<?> executor = executorMap.get(eventTypeName);
+        EventHandler<?> handler = handlerMap.get(eventTypeName);
 
-        if (executor == null) {
-            log.warn("not found executor: {}", eventTypeName);
+        if (handler == null) {
+            log.warn("not found handler: {}", eventTypeName);
             return;
         }
 
         try {
-            executor.executeRaw(event.getPayload(), objectMapper);
+            handler.executeRaw(event.getPayload(), objectMapper);
         } catch (Exception e) {
-            log.warn("executor fail: {}", e.getMessage());
+            log.warn("handler fail: {}", e.getMessage());
         }
 
         acknowledgement.acknowledge();

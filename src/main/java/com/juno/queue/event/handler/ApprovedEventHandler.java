@@ -1,4 +1,4 @@
-package com.juno.queue.event.executor;
+package com.juno.queue.event.handler;
 
 import com.juno.queue.event.dto.payload.ApprovedEventPayload;
 import lombok.extern.slf4j.Slf4j;
@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component("approved")
 @Slf4j
-public class ApprovedExecutor extends Executor<ApprovedEventPayload> {
+public class ApprovedEventHandler extends EventHandler<ApprovedEventPayload> {
 
     @Override
     public Class<ApprovedEventPayload> getPayloadType() {

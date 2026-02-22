@@ -1,9 +1,9 @@
-package com.juno.queue.event.executor;
+package com.juno.queue.event.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.juno.queue.event.dto.payload.EventPayload;
 
-public abstract class Executor<T extends EventPayload> {
+public abstract class EventHandler<T extends EventPayload> {
 
     protected abstract Class<T> getPayloadType();
 
