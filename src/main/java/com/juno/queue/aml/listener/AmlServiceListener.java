@@ -17,23 +17,27 @@ import java.util.Map;
 @Component
 @RequiredArgsConstructor
 public class AmlServiceListener {
-    private final Map<String, Executor> executorMap;
+    private final Map<String, Executor<?>> executorMap;
     private final ObjectMapper objectMapper;
 
-    @SuppressWarnings({"rawtypes", "unchecked"})
     @SqsListener(value = "aml-service", acknowledgementMode = SqsListenerAcknowledgementMode.MANUAL)
     public void handle(DefaultEvent event, Acknowledgement acknowledgement) {
         String eventTypeName = event.getEventType().name();
-        Executor executor = executorMap.get(eventTypeName);
+        Executor<?> executor = executorMap.get(eventTypeName);
 
         if (executor == null) {
             log.warn("not found executor: {}", eventTypeName);
             return;
         }
 
-        executor.execute(event.getPayload());
+        resolveAndExecute(executor, event.getPayload());
         acknowledgement.acknowledge();
         log.info("[Aml Service] Received event: eventId={}, eventType={}, payload={}",
                 event.getEventId(), event.getEventType(), event.getPayload());
+    }
+
+    private <T extends EventPayload> void resolveAndExecute(Executor<T> executor, Object rawPayload) {
+        T payload = objectMapper.convertValue(rawPayload, executor.getPayloadType());
+        executor.execute(payload);
     }
 }

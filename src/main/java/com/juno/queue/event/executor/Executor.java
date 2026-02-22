@@ -1,5 +1,9 @@
 package com.juno.queue.event.executor;
 
-public interface Executor {
-    void execute(Object payload);
+import com.juno.queue.event.dto.payload.EventPayload;
+
+public interface Executor<T extends EventPayload> {
+    Class<T> getPayloadType();
+
+    void execute(T payload);
 }
