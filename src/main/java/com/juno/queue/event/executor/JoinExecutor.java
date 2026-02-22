@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component("join")
 @Slf4j
-public class JoinExecutor implements Executor<JoinEventPayload> {
+public class JoinExecutor extends Executor<JoinEventPayload> {
 
     @Override
     public Class<JoinEventPayload> getPayloadType() {
@@ -14,7 +14,7 @@ public class JoinExecutor implements Executor<JoinEventPayload> {
     }
 
     @Override
-    public void execute(JoinEventPayload payload) {
+    protected void execute(JoinEventPayload payload) {
         log.info("join payload: {}", payload);
     }
 }

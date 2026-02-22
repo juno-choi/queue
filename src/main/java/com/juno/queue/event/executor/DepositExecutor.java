@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component("deposit")
 @Slf4j
-public class DepositExecutor implements Executor<DepositEventPayload> {
+public class DepositExecutor extends Executor<DepositEventPayload> {
 
     @Override
     public Class<DepositEventPayload> getPayloadType() {
@@ -14,7 +14,7 @@ public class DepositExecutor implements Executor<DepositEventPayload> {
     }
 
     @Override
-    public void execute(DepositEventPayload payload) {
+    protected void execute(DepositEventPayload payload) {
         log.info("deposit payload: {}", payload);
     }
 }

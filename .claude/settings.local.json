@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(git -C \"C:/project/company/bdacs/queue\" config --global core.autocrlf)"
+      "Bash(git -C \"C:/project/company/bdacs/queue\" config --global core.autocrlf)",
+      "Bash(./gradlew build:*)"
     ]
   }
 }

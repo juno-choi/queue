@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component("withdraw")
 @Slf4j
-public class WithdrawExecutor implements Executor<WithdrawEventPayload> {
+public class WithdrawExecutor extends Executor<WithdrawEventPayload> {
 
     @Override
     public Class<WithdrawEventPayload> getPayloadType() {
@@ -14,7 +14,7 @@ public class WithdrawExecutor implements Executor<WithdrawEventPayload> {
     }
 
     @Override
-    public void execute(WithdrawEventPayload payload) {
+    protected void execute(WithdrawEventPayload payload) {
         log.info("withdraw payload: {}", payload);
     }
 }

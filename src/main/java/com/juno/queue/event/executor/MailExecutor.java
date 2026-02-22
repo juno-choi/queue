@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component("mail")
 @Slf4j
-public class MailExecutor implements Executor<MailEventPayload> {
+public class MailExecutor extends Executor<MailEventPayload> {
 
     @Override
     public Class<MailEventPayload> getPayloadType() {
@@ -14,7 +14,7 @@ public class MailExecutor implements Executor<MailEventPayload> {
     }
 
     @Override
-    public void execute(MailEventPayload payload) {
+    protected void execute(MailEventPayload payload) {
         log.info("mail payload: {}", payload);
     }
 }

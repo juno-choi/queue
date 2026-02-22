@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component("approved")
 @Slf4j
-public class ApprovedExecutor implements Executor<ApprovedEventPayload> {
+public class ApprovedExecutor extends Executor<ApprovedEventPayload> {
 
     @Override
     public Class<ApprovedEventPayload> getPayloadType() {
@@ -14,7 +14,8 @@ public class ApprovedExecutor implements Executor<ApprovedEventPayload> {
     }
 
     @Override
-    public void execute(ApprovedEventPayload payload) {
+    protected void execute(ApprovedEventPayload payload) {
         log.info("approved payload: {}", payload);
     }
+
 }

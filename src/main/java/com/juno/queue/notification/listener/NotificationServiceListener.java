@@ -2,7 +2,6 @@ package com.juno.queue.notification.listener;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.juno.queue.event.dto.DefaultEvent;
-import com.juno.queue.event.dto.payload.EventPayload;
 import com.juno.queue.event.executor.Executor;
 import io.awspring.cloud.sqs.annotation.SqsListener;
 import io.awspring.cloud.sqs.annotation.SqsListenerAcknowledgementMode;
@@ -30,14 +29,9 @@ public class NotificationServiceListener {
             return;
         }
 
-        resolveAndExecute(executor, event.getPayload());
+        executor.executeRaw(event.getPayload(), objectMapper);
         acknowledgement.acknowledge();
         log.info("[Notification Service] Received event: eventId={}, eventType={}, payload={}",
                 event.getEventId(), event.getEventType(), event.getPayload());
-    }
-
-    private <T extends EventPayload> void resolveAndExecute(Executor<T> executor, Object rawPayload) {
-        T payload = objectMapper.convertValue(rawPayload, executor.getPayloadType());
-        executor.execute(payload);
     }
 }
