@@ -1,8 +1,8 @@
 package com.juno.queue.event.dto.payload;
 
-import lombok.NoArgsConstructor;
+import lombok.Data;
 
-@NoArgsConstructor
+@Data
 public class ApprovedEventPayload implements EventPayload {
     private String email;
 }

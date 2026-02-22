@@ -17,7 +17,7 @@ import java.util.Map;
 @Component
 @RequiredArgsConstructor
 public class AmlServiceListener {
-    private final Map<String, Executor<?>> executorMap;
+    private final Map<String, Executor> executorMap;
     private final ObjectMapper objectMapper;
 
     @SuppressWarnings({"rawtypes", "unchecked"})
@@ -31,8 +31,7 @@ public class AmlServiceListener {
             return;
         }
 
-        EventPayload converted = (EventPayload) objectMapper.convertValue(event.getPayload(), executor.getPayloadType());
-        executor.execute(converted);
+        executor.execute(event.getPayload());
         acknowledgement.acknowledge();
         log.info("[Aml Service] Received event: eventId={}, eventType={}, payload={}",
                 event.getEventId(), event.getEventType(), event.getPayload());
