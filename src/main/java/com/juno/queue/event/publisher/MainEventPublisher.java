@@ -18,7 +18,7 @@ public class MainEventPublisher {
     private String topicArn;
 
     public void publish(DefaultEvent event) {
-        log.info("Publishing event: eventId={}, eventType={}", event.getEventId(), event.getEventType());
+        log.info("Publishing event: eventId={}, eventType={}, payload={}", event.getEventId(), event.getEventType(), event.getPayload().toString());
         snsTemplate.convertAndSend(topicArn, event);
     }
 }
