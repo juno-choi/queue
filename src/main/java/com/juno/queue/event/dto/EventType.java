@@ -2,12 +2,12 @@ package com.juno.queue.event.dto;
 
 public enum EventType {
     // core, notification
-    deposit,
-    withdraw,
+    DEPOSIT,
+    WITHDRAW,
     // aml, notification
-    join,
-    approved,
+    JOIN,
+    APPROVED,
     // mail
-    mail,
+    MAIL,
     ;
 }

@@ -17,4 +17,9 @@ public class MailExecutor extends Executor<MailEventPayload> {
     protected void execute(MailEventPayload payload) {
         log.info("mail payload: {}", payload);
     }
+
+    @Override
+    public void executeSaga(MailEventPayload payload) {
+        log.info("saga execute: {}", payload);
+    }
 }

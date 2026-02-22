@@ -18,4 +18,9 @@ public class ApprovedExecutor extends Executor<ApprovedEventPayload> {
         log.info("approved payload: {}", payload);
     }
 
+    @Override
+    public void executeSaga(ApprovedEventPayload payload) {
+        log.info("saga execute: {}", payload);
+    }
+
 }

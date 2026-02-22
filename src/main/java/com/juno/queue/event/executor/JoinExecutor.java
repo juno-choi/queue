@@ -17,4 +17,9 @@ public class JoinExecutor extends Executor<JoinEventPayload> {
     protected void execute(JoinEventPayload payload) {
         log.info("join payload: {}", payload);
     }
+
+    @Override
+    public void executeSaga(JoinEventPayload payload) {
+        log.info("saga execute: {}", payload);
+    }
 }
