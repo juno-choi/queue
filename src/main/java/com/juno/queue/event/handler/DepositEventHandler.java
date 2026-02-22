@@ -14,7 +14,7 @@ public class DepositEventHandler extends EventHandler<DepositEventPayload> {
     }
 
     @Override
-    protected void execute(DepositEventPayload payload) {
+    protected void handle(DepositEventPayload payload) {
         log.info("deposit payload: {}", payload);
     }
 

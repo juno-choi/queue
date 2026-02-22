@@ -7,10 +7,10 @@ public abstract class EventHandler<T extends EventPayload> {
 
     protected abstract Class<T> getPayloadType();
 
-    protected abstract void execute(T payload);
+    protected abstract void handle(T payload);
 
-    public void executeRaw(Object rawPayload, ObjectMapper objectMapper) {
+    public void handleRaw(Object rawPayload, ObjectMapper objectMapper) {
         T payload = objectMapper.convertValue(rawPayload, getPayloadType());
-        execute(payload);
+        handle(payload);
     }
 }

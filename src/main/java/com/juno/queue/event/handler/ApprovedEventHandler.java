@@ -14,7 +14,7 @@ public class ApprovedEventHandler extends EventHandler<ApprovedEventPayload> {
     }
 
     @Override
-    protected void execute(ApprovedEventPayload payload) {
+    protected void handle(ApprovedEventPayload payload) {
         log.info("approved payload: {}", payload);
     }
 }

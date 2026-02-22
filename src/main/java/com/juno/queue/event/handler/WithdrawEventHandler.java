@@ -14,7 +14,7 @@ public class WithdrawEventHandler extends EventHandler<WithdrawEventPayload> {
     }
 
     @Override
-    protected void execute(WithdrawEventPayload payload) {
+    protected void handle(WithdrawEventPayload payload) {
         log.info("withdraw payload: {}", payload);
     }
 }

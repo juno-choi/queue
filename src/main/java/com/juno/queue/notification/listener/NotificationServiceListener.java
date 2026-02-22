@@ -20,7 +20,7 @@ public class NotificationServiceListener {
     private final ObjectMapper objectMapper;
 
     @SqsListener(value = "notification-service", acknowledgementMode = SqsListenerAcknowledgementMode.MANUAL)
-    public void handle(DefaultEvent event, Acknowledgement acknowledgement) {
+    public void consume(DefaultEvent event, Acknowledgement acknowledgement) {
         String eventTypeName = event.getEventType().name();
         EventHandler<?> handler = handlerMap.get(eventTypeName);
 
@@ -30,7 +30,7 @@ public class NotificationServiceListener {
         }
 
         try {
-            handler.executeRaw(event.getPayload(), objectMapper);
+            handler.handleRaw(event.getPayload(), objectMapper);
         } catch (Exception e) {
             log.warn("handler fail: {}", e.getMessage());
         }

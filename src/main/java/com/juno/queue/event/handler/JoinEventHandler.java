@@ -14,7 +14,7 @@ public class JoinEventHandler extends EventHandler<JoinEventPayload> {
     }
 
     @Override
-    protected void execute(JoinEventPayload payload) {
+    protected void handle(JoinEventPayload payload) {
         log.info("join payload: {}", payload);
     }
 

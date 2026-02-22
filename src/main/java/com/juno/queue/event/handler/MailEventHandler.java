@@ -14,7 +14,7 @@ public class MailEventHandler extends EventHandler<MailEventPayload> {
     }
 
     @Override
-    protected void execute(MailEventPayload payload) {
+    protected void handle(MailEventPayload payload) {
         log.info("mail payload: {}", payload);
     }
 
