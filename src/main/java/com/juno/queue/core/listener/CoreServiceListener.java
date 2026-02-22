@@ -32,8 +32,7 @@ public class CoreServiceListener {
         try {
             executor.executeRaw(event.getPayload(), objectMapper);
         } catch (Exception e) {
-            // todo executor 에서 saga pattern을 정의해서 처리하도록 하면 좋을 듯
-            executor.executeSagaRaw(event.getPayload(), objectMapper);
+            log.warn("executor fail: {}", e.getMessage());
         }
 
         acknowledgement.acknowledge();

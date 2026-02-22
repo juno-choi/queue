@@ -17,9 +17,4 @@ public class WithdrawExecutor extends Executor<WithdrawEventPayload> {
     protected void execute(WithdrawEventPayload payload) {
         log.info("withdraw payload: {}", payload);
     }
-
-    @Override
-    public void executeSaga(WithdrawEventPayload payload) {
-        log.info("saga execute: {}", payload);
-    }
 }

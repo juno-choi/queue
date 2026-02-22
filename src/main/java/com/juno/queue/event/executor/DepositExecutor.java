@@ -19,8 +19,4 @@ public class DepositExecutor extends Executor<DepositEventPayload> {
         log.info("deposit payload: {}", payload);
     }
 
-    @Override
-    public void executeSaga(DepositEventPayload payload) {
-        log.info("saga execute: {}", payload);
-    }
 }

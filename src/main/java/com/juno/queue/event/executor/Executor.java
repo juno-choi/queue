@@ -13,11 +13,4 @@ public abstract class Executor<T extends EventPayload> {
         T payload = objectMapper.convertValue(rawPayload, getPayloadType());
         execute(payload);
     }
-
-    protected abstract void executeSaga(T payload);
-
-    public void executeSagaRaw(Object rawPayload, ObjectMapper objectMapper) {
-        T payload = objectMapper.convertValue(rawPayload, getPayloadType());
-        executeSaga(payload);
-    }
 }

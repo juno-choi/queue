@@ -18,8 +18,4 @@ public class MailExecutor extends Executor<MailEventPayload> {
         log.info("mail payload: {}", payload);
     }
 
-    @Override
-    public void executeSaga(MailEventPayload payload) {
-        log.info("saga execute: {}", payload);
-    }
 }
