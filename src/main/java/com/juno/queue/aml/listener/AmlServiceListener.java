@@ -24,6 +24,8 @@ public class AmlServiceListener {
         String eventTypeName = event.getEventType().name();
         EventHandler<?> handler = handlerMap.get(eventTypeName);
 
+        // inbox 구현 가능
+
         if (handler == null) {
             log.warn("not found handler: {}", eventTypeName);
             return;

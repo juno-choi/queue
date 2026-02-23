@@ -19,6 +19,9 @@ public class MainEventPublisher {
 
     public void publish(DefaultEvent event) {
         log.info("Publishing event: eventId={}, eventType={}, payload={}", event.getEventId(), event.getEventType(), event.getPayload().toString());
+
+        // todo 여기서는 outbox로 처리
+
         snsTemplate.convertAndSend(topicArn, event);
     }
 }
