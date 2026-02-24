@@ -9,7 +9,7 @@ SNS/SQS 기반의 이벤트 처리 시스템입니다. 단일 SNS Topic에서 Fi
 ```mermaid
 sequenceDiagram
     participant Client
-    participant Publisher as MainEventPublisher
+    participant Publisher as ApplicationPublisher
     participant SNS as SNS Topic
     participant SQS as SQS
     participant Listener as EventListener
